@@ -1,0 +1,23 @@
+---
+resources:
+  - ../../base
+
+namespace: qa
+replicas:
+  - name: app-deploy
+    count: 4
+labels:
+  - pairs:
+      app: qa-deploy     
+#patches:
+#  - path: add-image.patch.yaml
+#  - path: fix-port.patch.yaml
+#    target:
+#      labelSelector: "app: environment"  
+images:
+- name: nginx
+  newName: jenkins/jenkins
+  newTag: lts-jdk11
+
+
+      

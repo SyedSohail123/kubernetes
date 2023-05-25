@@ -1,0 +1,29 @@
+---
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: mysql-rs
+  labels:
+    app: mysql
+spec:
+  minReadySeconds: 5
+  replicas: 3 
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      name: mysql-rs-pod
+      labels:
+        app: mysql
+    spec:
+      containers: 
+        - name: mysql
+          image: mysql:8
+          envFrom:
+            - configMapRef:
+                name: mysql-cm
+                optional: false
+          ports:
+            - containerPort: 3306
+  

@@ -1,0 +1,49 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deploy
+  labels:
+    app: nginx-deploy
+spec:
+  minReadySeconds: 10
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+  strategy:
+    type: RollingUpdate
+    rollingUpdate: 
+      maxSurge: 25%
+      maxUnavailable: 25%
+  template:
+    metadata:
+      name: nginx-pod
+      labels:
+        app: nginx
+        ver: "1.24"
+    spec:      
+      containers:
+        - name: nginx
+          image: phpmyadmin
+          ports:
+            - containerPort: 80
+          readinessProbe:
+            failureThreshold: 3
+            periodSeconds: 10
+            initialDelaySeconds: 1
+            successThreshold: 1
+            timeoutSeconds: 2
+            httpGet:
+              port: 80
+              path: /
+          livenessProbe:
+            failureThreshold: 3
+            periodSeconds: 10
+            initialDelaySeconds: 1
+            successThreshold: 1
+            timeoutSeconds: 2
+            httpGet:
+              port: 80
+              path: /
+          

@@ -1,0 +1,15 @@
+---
+resources:
+  - ../../base
+
+namespace: dev
+replicas:
+  - name: app-deploy
+    count: 2
+labels:
+  - pairs:
+      app: dev-deploy
+images:
+- name: nginx
+  newName: syedsohail321/identity-svc
+  newTag: 1.0.0

@@ -1,0 +1,26 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: ubuntu-job
+  labels:
+    app: ubuntu1    
+spec:
+  template:
+    metadata:
+      name: pod-job
+      labels:
+        os: ubuntu
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: alpine
+          image: alpine
+          command:
+            - sleep
+            - 20s
+    
+
+
+ 
+
+      

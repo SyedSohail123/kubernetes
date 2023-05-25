@@ -1,0 +1,25 @@
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: daemon
+  labels:
+    app: spc
+spec:
+  minReadySeconds: 10
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: spc
+  template:
+    metadata: 
+      name: spc-pod
+      labels:
+        app: spc
+    spec:
+      containers:
+        - name: spc
+          image: alpine
+          command:
+            - sleep
+            - 10s 

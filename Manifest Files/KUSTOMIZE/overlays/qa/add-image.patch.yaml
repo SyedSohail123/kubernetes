@@ -1,0 +1,16 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-deploy
+  namespace: qa
+spec:
+  template:
+    metadata:
+      name: deploy-pod
+    spec:
+      containers:
+        - name: jenkins
+          image: syedsohail321/jenkins:1.0
+          ports:
+            - containerPort: 8080
